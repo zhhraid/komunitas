@@ -18,11 +18,41 @@
             </a>
             <div class="nav-links">
                 <a class="is-active" href="#beranda">Beranda</a>
-                <a href="#perguruan">Perguruan</a>
-                <a href="#kegiatan">Kegiatan</a>
-                <a href="#agenda">Agenda</a>
-                <a href="#khazanah">Khazanah</a>
-                <a href="#galeri">Galeri</a>
+                <div class="nav-item has-submenu">
+                    <a href="#perguruan">Perguruan</a>
+                    <div class="submenu">
+                        <a href="#sejarah">Sejarah</a>
+                        <a href="#silsilah-tuo-silek">Silsilah Tuo Silek</a>
+                    </div>
+                </div>
+                <div class="nav-item has-submenu">
+                    <a href="#kegiatan">Kegiatan</a>
+                    <div class="submenu">
+                        <a href="#latihan">Latihan</a>
+                        <a href="#seni">Seni</a>
+                        <a href="#regenerasi">Regenerasi</a>
+                    </div>
+                </div>
+                <div class="nav-item has-submenu">
+                    <a href="#agenda">Agenda</a>
+                    <div class="submenu">
+                        <a href="#kegiatan-rutin">Kegiatan Rutin</a>
+                        <a href="#kegiatan-unggulan">Kegiatan Unggulan</a>
+                    </div>
+                </div>
+                <div class="nav-item has-submenu">
+                    <a href="#khazanah">Khazanah</a>
+                    <div class="submenu">
+                        <a href="#kamus-silek-minangkabau">Kamus Silek Minangkabau</a>
+                        <a href="#kamus-randai">Kamus Randai</a>
+                    </div>
+                </div>
+                <div class="nav-item has-submenu">
+                    <a href="#galeri">Galeri</a>
+                    <div class="submenu">
+                        <a href="#dokumentasi">Dokumentasi</a>
+                    </div>
+                </div>
                 <a href="#kontak">Kontak</a>
                 <a href="#peta-situs">Peta Situs</a>
             </div>
@@ -70,7 +100,7 @@
                 </p>
             </div>
             <div class="split-layout">
-                <article class="story-card large">
+                <article class="story-card large section-snap" id="sejarah">
                     <span>Sejarah</span>
                     <h3>Sejarah Perguruan</h3>
                     <p>
@@ -78,7 +108,7 @@
                         serta filosofi yang menjadi pegangan dalam latihan.
                     </p>
                 </article>
-                <article class="story-card">
+                <article class="story-card section-snap" id="silsilah-tuo-silek">
                     <span>Silsilah</span>
                     <h3>Tuo Silek</h3>
                     <p>
@@ -98,17 +128,17 @@
                 </p>
             </div>
             <div class="cards three">
-                <article class="card">
+                <article class="card section-snap" id="latihan">
                     <span class="card-icon">01</span>
                     <strong>Latihan</strong>
                     <p>Jadwal latihan rutin, lokasi latihan, pelatih, dan persyaratan peserta baru.</p>
                 </article>
-                <article class="card">
+                <article class="card section-snap" id="seni">
                     <span class="card-icon">02</span>
                     <strong>Seni</strong>
                     <p>Penampilan, randai, tradisi gerak, dan karya seni yang terhubung dengan Silek.</p>
                 </article>
-                <article class="card">
+                <article class="card section-snap" id="regenerasi">
                     <span class="card-icon">03</span>
                     <strong>Regenerasi</strong>
                     <p>Program pembinaan generasi muda agar nilai dan pengetahuan tetap berlanjut.</p>
@@ -122,17 +152,17 @@
                 <h2>Kegiatan rutin dan unggulan.</h2>
             </div>
             <div class="agenda-list">
-                <article class="agenda-item">
+                <article class="agenda-item section-snap" id="kegiatan-rutin">
                     <time>Rutin</time>
                     <div>
-                        <h3>Latihan Mingguan</h3>
+                        <h3>Kegiatan Rutin</h3>
                         <p>Isi dengan hari, jam, dan tempat latihan komunitas.</p>
                     </div>
                 </article>
-                <article class="agenda-item">
+                <article class="agenda-item section-snap" id="kegiatan-unggulan">
                     <time>Unggulan</time>
                     <div>
-                        <h3>Festival atau Pertunjukan</h3>
+                        <h3>Kegiatan Unggulan</h3>
                         <p>Gunakan bagian ini untuk acara besar, kolaborasi, atau undangan.</p>
                     </div>
                 </article>
@@ -156,11 +186,11 @@
                 </p>
             </div>
             <div class="dictionary-grid">
-                <article>
+                <article class="section-snap" id="kamus-silek-minangkabau">
                     <strong>Kamus Silek Minangkabau</strong>
                     <p>Masukkan istilah gerak, posisi, aba-aba, dan makna budaya.</p>
                 </article>
-                <article>
+                <article class="section-snap" id="kamus-randai">
                     <strong>Kamus Randai</strong>
                     <p>Masukkan istilah pertunjukan, dialog, musik, dan struktur cerita.</p>
                 </article>
@@ -172,7 +202,7 @@
                 <p class="eyebrow">Galeri</p>
                 <h2>Dokumentasi kegiatan.</h2>
             </div>
-            <div class="gallery-grid" aria-label="Placeholder dokumentasi">
+            <div class="gallery-grid section-snap" id="dokumentasi" aria-label="Placeholder dokumentasi">
                 <div>Latihan</div>
                 <div>Perguruan</div>
                 <div>Randai</div>
@@ -216,11 +246,22 @@
         <div class="footer-links">
             <a href="#beranda">Beranda</a>
             <a href="#perguruan">Perguruan</a>
+            <a href="#sejarah">Sejarah</a>
+            <a href="#silsilah-tuo-silek">Silsilah Tuo Silek</a>
             <a href="#kegiatan">Kegiatan</a>
+            <a href="#latihan">Latihan</a>
+            <a href="#seni">Seni</a>
+            <a href="#regenerasi">Regenerasi</a>
             <a href="#agenda">Agenda</a>
+            <a href="#kegiatan-rutin">Kegiatan Rutin</a>
+            <a href="#kegiatan-unggulan">Kegiatan Unggulan</a>
             <a href="#khazanah">Khazanah</a>
+            <a href="#kamus-silek-minangkabau">Kamus Silek Minangkabau</a>
+            <a href="#kamus-randai">Kamus Randai</a>
             <a href="#galeri">Galeri</a>
+            <a href="#dokumentasi">Dokumentasi</a>
             <a href="#kontak">Kontak</a>
+            <a href="#peta-situs">Peta Situs</a>
         </div>
     </footer>
 </div>
