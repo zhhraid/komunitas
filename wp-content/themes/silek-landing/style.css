@@ -3,7 +3,7 @@ Theme Name: Silek Landing
 Theme URI: http://silek.test/
 Author: Silek
 Description: Custom one-page landing page for a Silek community website.
-Version: 1.10.0
+Version: 1.10.2
 Requires at least: 6.0
 Tested up to: 6.8
 Requires PHP: 7.4
@@ -630,7 +630,7 @@ img {
   display: grid;
   grid-template-columns: 1.35fr 0.65fr;
   gap: 22px;
-  align-items: start;
+  padding-top: 0;
 }
 
 .timeline-panel {
@@ -2775,9 +2775,17 @@ img {
   transition: transform 260ms ease;
 }
 
+.gallery-track .gallery-open img.is-portrait {
+  object-fit: contain;
+}
+
 .gallery-open:hover img,
 .gallery-open:focus-visible img {
   transform: scale(1.035);
+}
+
+.gallery-track .gallery-card::after {
+  display: none;
 }
 
 .gallery-track .gallery-card figcaption {
@@ -3200,36 +3208,139 @@ img {
     flex-direction: column;
     gap: 8px;
   }
-}/* Profil perguruan: maksud tujuan, visi misi, sejarah, silsilah, data umum, program. */
-.story-card h4 {
-  margin: 20px 0 8px;
-  color: var(--gold-deep);
-  font-size: 0.76rem;
-  font-weight: 1000;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+}/* Profil perguruan: header di atas, isi selebar kontainer, kartu sama tinggi. */
+.profile-section {
+  display: block;
+  padding: 88px 0;
 }
 
-.story-list,
-.mission-list,
-.lineage-steps,
-.name-list,
-.program-list {
+.profile-section.is-muted {
+  width: 100%;
+  max-width: none;
+  padding-right: max(20px, calc((100vw - 1200px) / 2));
+  padding-left: max(20px, calc((100vw - 1200px) / 2));
+  background: linear-gradient(90deg, #fff8e8, #fffdf8 60%, #fbf0d8);
+}
+
+.section-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr);
+  gap: 48px;
+  align-items: end;
+  margin-bottom: 40px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--line);
+}
+
+.section-head h2 {
+  font-size: clamp(2.2rem, 3.6vw, 3.4rem);
+  line-height: 1.04;
+}
+
+.section-head p:not(.eyebrow) {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.section-head .button {
+  margin-top: 18px;
+}
+
+.section-head.is-center {
+  display: block;
+  max-width: 760px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-bottom: 0;
+  border-bottom: 0;
+  text-align: center;
+}
+
+.section-head.is-center p:not(.eyebrow) {
+  margin-top: 14px;
+}
+
+.background-card,
+.purpose-card,
+.mission-list li,
+.era-entry,
+.lineage-step,
+.data-sheet,
+.program-panel {
+  border: 1px solid rgba(234, 220, 193, 0.9);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 18px 44px rgba(21, 17, 10, 0.06);
+}
+
+.profile-intro-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 18px;
+  align-items: stretch;
+}
+
+.background-card {
+  padding: 32px 36px;
+}
+
+.background-card h3,
+.purpose-card h3,
+.program-panel h3 {
+  margin: 16px 0 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.6rem;
+  line-height: 1.12;
+}
+
+.background-card-body {
+  margin-top: 16px;
+}
+
+.background-card-body p {
+  margin: 0 0 14px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.background-card-body p:last-child {
+  margin-bottom: 0;
+}
+
+.background-card-body p:first-child {
+  color: var(--ink);
+  font-size: 1.06rem;
+}
+
+.purpose-grid {
+  display: grid;
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.purpose-card {
+  padding: 28px 32px;
+}
+
+.purpose-card h3 {
+  margin-bottom: 16px;
+}
+
+.story-list {
+  display: grid;
+  gap: 12px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.story-list {
-  display: grid;
-  gap: 10px;
-}
-
 .story-list li {
   position: relative;
-  padding-left: 20px;
+  padding-left: 22px;
   color: var(--muted);
-  line-height: 1.7;
+  line-height: 1.75;
 }
 
 .story-list li::before {
@@ -3243,119 +3354,178 @@ img {
   background: var(--gold);
 }
 
-.vision-layout {
-  display: grid;
-  gap: 18px;
-}
-
 .vision-card {
   position: relative;
-  padding: 32px;
+  max-width: 920px;
+  margin: 0 auto 28px;
+  padding: 44px 56px;
+  overflow: hidden;
   border-radius: 8px;
   background: linear-gradient(135deg, var(--dark), #3a2a12);
   color: #fff;
-  box-shadow: 0 22px 55px rgba(21, 17, 10, 0.16);
-  overflow: hidden;
+  text-align: center;
+  box-shadow: 0 24px 60px rgba(21, 17, 10, 0.18);
 }
 
 .vision-card::after {
   content: "";
   position: absolute;
-  right: -60px;
-  bottom: -60px;
-  width: 200px;
-  height: 200px;
+  right: -70px;
+  bottom: -70px;
+  width: 220px;
+  height: 220px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(246, 191, 36, 0.28), transparent 70%);
+  background: radial-gradient(circle, rgba(246, 191, 36, 0.26), transparent 70%);
   pointer-events: none;
 }
 
 .vision-label {
   display: inline-flex;
-  padding: 6px 11px;
+  padding: 6px 12px;
   border-radius: 999px;
   background: rgba(246, 191, 36, 0.16);
   color: var(--gold);
   font-size: 0.72rem;
   font-weight: 1000;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
 .vision-card p {
   position: relative;
-  margin: 16px 0 0;
+  margin: 18px 0 0;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(1.35rem, 2.2vw, 1.8rem);
-  line-height: 1.3;
+  font-size: clamp(1.45rem, 2.5vw, 2.05rem);
+  line-height: 1.32;
 }
 
-.mission-block h3 {
-  margin: 6px 0 12px;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 1.5rem;
+.mission-list,
+.era-timeline,
+.lineage-steps,
+.name-list,
+.program-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 .mission-list {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
 }
 
 .mission-list li {
-  display: grid;
-  grid-template-columns: 42px 1fr;
-  gap: 14px;
-  align-items: start;
-  padding: 18px;
-  border: 1px solid rgba(234, 220, 193, 0.9);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.94);
-  box-shadow: 0 16px 38px rgba(21, 17, 10, 0.06);
+  padding: 24px;
+  border-top: 4px solid var(--gold);
 }
 
-.mission-list span {
-  display: grid;
-  width: 42px;
-  height: 42px;
-  place-items: center;
-  border-radius: 50%;
-  background: var(--gold-soft);
+.mission-list span,
+.lineage-label {
   color: var(--gold-deep);
+  font-size: 0.74rem;
   font-weight: 1000;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 .mission-list p {
+  margin: 10px 0 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.era-timeline {
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.era-timeline li {
+  display: grid;
+  grid-template-columns: 110px 24px minmax(0, 1fr);
+  column-gap: 22px;
+  padding-bottom: 22px;
+}
+
+.era-timeline li:last-child {
+  padding-bottom: 0;
+}
+
+.era-timeline time {
+  padding-top: 20px;
+  color: var(--gold-deep);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.9rem;
+  font-weight: 800;
+  line-height: 1;
+  text-align: right;
+}
+
+.era-marker {
+  position: relative;
+}
+
+.era-marker::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: -22px;
+  left: 50%;
+  width: 2px;
+  background: var(--line);
+  transform: translateX(-50%);
+}
+
+.era-marker::after {
+  content: "";
+  position: absolute;
+  top: 22px;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 0 1px var(--gold);
+  transform: translateX(-50%);
+}
+
+.era-timeline li:first-child .era-marker::before {
+  top: 30px;
+}
+
+.era-timeline li:last-child .era-marker::before {
+  bottom: auto;
+  height: 30px;
+}
+
+.era-entry {
+  padding: 22px 26px;
+}
+
+.era-entry h3 {
+  margin: 0 0 8px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.35rem;
+  line-height: 1.15;
+}
+
+.era-entry p {
   margin: 0;
   color: var(--muted);
+  line-height: 1.75;
 }
 
-.history-story p strong {
-  color: var(--ink);
-}
-
-.history-timeline {
-  grid-column: 1 / -1;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-}
-
-.history-timeline article {
-  min-height: 0;
-}
-
-.history-timeline strong {
-  margin-top: 20px;
-}
-
-.lineage-panel {
-  display: grid;
-  gap: 18px;
+.era-entry p + p {
+  margin-top: 10px;
 }
 
 .portrait-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
+  gap: 20px;
+  max-width: 960px;
+  margin: 0 auto 28px;
 }
 
 .portrait-card {
@@ -3363,11 +3533,11 @@ img {
   overflow: hidden;
   border-radius: 8px;
   background: #17120b;
-  box-shadow: 0 16px 38px rgba(28, 20, 10, 0.12);
+  box-shadow: 0 18px 44px rgba(28, 20, 10, 0.14);
 }
 
 .portrait-card .portrait-open {
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 4 / 5;
 }
 
 .portrait-card .portrait-open img {
@@ -3376,14 +3546,15 @@ img {
 
 .portrait-card figcaption {
   display: grid;
-  gap: 3px;
-  padding: 14px 16px 16px;
+  gap: 4px;
+  padding: 16px 18px 18px;
   color: #fff;
+  text-align: center;
 }
 
 .portrait-card figcaption strong {
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 1.12rem;
+  font-size: 1.15rem;
 }
 
 .portrait-card figcaption span {
@@ -3394,74 +3565,68 @@ img {
 
 .lineage-steps {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
 }
 
 .lineage-step {
-  padding: 22px;
-  border: 1px solid rgba(234, 220, 193, 0.9);
+  padding: 24px;
   border-top: 4px solid var(--gold);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.94);
-  box-shadow: 0 16px 38px rgba(21, 17, 10, 0.06);
 }
 
-.lineage-label {
+.lineage-step h3 {
+  margin: 8px 0 14px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.22rem;
+  line-height: 1.18;
+}
+
+.name-list li {
+  padding: 8px 0;
+  border-top: 1px dashed var(--line);
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.data-sheet {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr) minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1px;
+  margin: 0;
+  overflow: hidden;
+  background: var(--line);
+}
+
+.data-sheet div {
+  padding: 20px 24px;
+  background: #fff;
+}
+
+.data-sheet dt {
   color: var(--gold-deep);
-  font-size: 0.76rem;
+  font-size: 0.72rem;
   font-weight: 1000;
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
-.lineage-step h3 {
-  margin: 6px 0 8px;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 1.3rem;
-  line-height: 1.15;
-}
-
-.lineage-step p {
-  margin: 0 0 12px;
-  color: var(--muted);
-  font-size: 0.94rem;
-}
-
-.name-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.name-list li {
-  padding: 5px 11px;
-  border-radius: 999px;
-  background: var(--soft);
+.data-sheet dd {
+  margin: 6px 0 0;
   color: var(--ink);
-  font-size: 0.88rem;
+  font-size: 1.02rem;
   font-weight: 700;
 }
 
-.venue-panel {
-  display: grid;
-  gap: 22px;
-}
-
-.venue-heading {
-  max-width: 620px;
-}
-
-.venue-heading p:not(.eyebrow) {
-  margin: 14px 0 0;
-  color: var(--muted);
-  font-size: 1.02rem;
+.data-sheet dd a {
+  color: #15803d;
+  white-space: nowrap;
 }
 
 .venue-photos {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
+  gap: 18px;
+  margin-top: 18px;
 }
 
 .venue-photo {
@@ -3469,20 +3634,24 @@ img {
   overflow: hidden;
   border-radius: 8px;
   background: #17120b;
-  box-shadow: 0 16px 38px rgba(28, 20, 10, 0.12);
+  box-shadow: 0 18px 44px rgba(28, 20, 10, 0.14);
+}
+
+.venue-photo .gallery-open {
+  aspect-ratio: 16 / 10;
 }
 
 .venue-photo figcaption {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 13px 16px 15px;
-  color: rgba(255, 255, 255, 0.82);
-  font-size: 0.9rem;
+  padding: 14px 18px 16px;
+  color: rgba(255, 255, 255, 0.84);
+  font-size: 0.92rem;
 }
 
 .venue-photo figcaption span {
-  padding: 4px 9px;
+  padding: 4px 10px;
   border-radius: 999px;
   background: var(--gold);
   color: var(--ink);
@@ -3491,35 +3660,22 @@ img {
   text-transform: uppercase;
 }
 
-.identity-card .data-grid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px 16px;
+.profile-section .activity-cards {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-.identity-card .data-grid .is-wide {
-  grid-column: 1 / -1;
-}
-
-.identity-card dd a {
-  color: #15803d;
-  font-weight: 900;
-  white-space: nowrap;
+.profile-section .activity-card {
+  min-height: 0;
 }
 
 .program-panel {
-  grid-column: 1 / -1;
-  padding: 28px;
-  border: 1px solid rgba(234, 220, 193, 0.9);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.94);
-  box-shadow: 0 22px 55px rgba(21, 17, 10, 0.08);
+  margin-top: 18px;
+  padding: 32px 36px;
 }
 
 .program-panel h3 {
-  margin: 0 0 16px;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 1.5rem;
-  line-height: 1.15;
+  margin: 0 0 18px;
+  font-size: 1.45rem;
 }
 
 .program-list {
@@ -3531,8 +3687,9 @@ img {
 .program-list li {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 12px 14px;
+  gap: 12px;
+  min-height: 58px;
+  padding: 12px 16px;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: linear-gradient(180deg, #fff, #fff7e4);
@@ -3546,13 +3703,13 @@ img {
   font-weight: 1000;
 }
 
-.program-panel > p {
-  margin: 16px 0 0;
-  color: var(--muted);
-}
-
 @media (max-width: 1180px) {
-  .history-timeline {
+  .mission-list,
+  .lineage-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .data-sheet {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
@@ -3561,24 +3718,103 @@ img {
   }
 }
 
-@media (max-width: 760px) {
-  .mission-list,
-  .lineage-steps,
-  .venue-photos {
+@media (max-width: 980px) {
+  .section-head {
     grid-template-columns: 1fr;
+    gap: 14px;
   }
 
-  .history-timeline {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .profile-intro-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .profile-section,
+  .profile-section.is-muted {
+    width: 100% !important;
+    padding: 56px 18px !important;
+  }
+
+  .section-head {
+    margin-bottom: 26px;
+    padding-bottom: 22px;
+  }
+
+  .section-head p:not(.eyebrow) {
+    font-size: 0.98rem;
+  }
+
+  .section-head .button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .background-card,
+  .purpose-card,
+  .program-panel {
+    padding: 24px 22px;
+  }
+
+  .purpose-grid,
+  .mission-list,
+  .lineage-steps,
+  .venue-photos,
+  .profile-section .activity-cards {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .vision-card {
+    padding: 30px 24px;
+  }
+
+  .era-timeline li {
+    grid-template-columns: 20px minmax(0, 1fr);
+    grid-template-areas: "marker time" "marker entry";
+    column-gap: 14px;
+    padding-bottom: 18px;
+  }
+
+  .era-timeline time {
+    grid-area: time;
+    padding: 0 0 8px;
+    font-size: 1.5rem;
+    text-align: left;
+  }
+
+  .era-marker {
+    grid-area: marker;
+  }
+
+  .era-marker::before {
+    bottom: -18px;
+  }
+
+  .era-marker::after {
+    top: 4px;
+  }
+
+  .era-timeline li:first-child .era-marker::before {
+    top: 12px;
+  }
+
+  .era-timeline li:last-child .era-marker::before {
+    height: 12px;
+  }
+
+  .era-entry {
+    grid-area: entry;
+    padding: 18px 20px;
   }
 
   .portrait-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 8px;
+    gap: 10px;
+    margin-bottom: 20px;
   }
 
   .portrait-card figcaption {
-    padding: 10px;
+    padding: 10px 8px 12px;
   }
 
   .portrait-card figcaption strong {
@@ -3589,18 +3825,20 @@ img {
     font-size: 0.72rem;
   }
 
-  .vision-card,
-  .program-panel {
-    padding: 22px;
+  .data-sheet {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .lineage-step {
-    padding: 18px;
+  .data-sheet div {
+    padding: 16px;
+  }
+
+  .data-sheet div:nth-child(-n+2) {
+    grid-column: 1 / -1;
   }
 }
 
 @media (max-width: 420px) {
-  .history-timeline,
   .program-list {
     grid-template-columns: 1fr;
   }

@@ -27,6 +27,20 @@
       });
     }
 
+    document.querySelectorAll('.gallery-track .gallery-open img').forEach(function (image) {
+      function markOrientation() {
+        if (image.naturalHeight > image.naturalWidth) {
+          image.classList.add('is-portrait');
+        }
+      }
+
+      if (image.complete) {
+        markOrientation();
+      } else {
+        image.addEventListener('load', markOrientation);
+      }
+    });
+
     if (lightbox) {
       var lightboxImage = lightbox.querySelector('img');
       var lightboxCaption = lightbox.querySelector('figcaption');
