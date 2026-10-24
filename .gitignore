@@ -6,3 +6,5 @@ wp-content/debug.log
 .htaccess
 .DS_Store
 Thumbs.db
+*.log
+*.err
