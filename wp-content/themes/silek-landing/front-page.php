@@ -130,192 +130,221 @@ $profil_uri      = $theme_uri . '/assets/images/profil/';
             </div>
         </section>
 
-        <section class="section intro-section section-snap" id="perguruan">
-            <div class="section-lead">
-                <p class="eyebrow">Tentang Kami</p>
-                <h2>Profil Perguruan</h2>
-                <p>
-                    Perguruan Pencak Silat Kuranji Sejati adalah sasaran silek tradisional di Rimbo Tarok, Kuranji, Kota Padang, yang membekali generasi muda dengan pencak silat, randai, tari-tarian, dan musik tradisional Minangkabau.
-                </p>
-            </div>
-            <div class="intro-stories">
-                <article class="story-card section-snap" id="latar-belakang">
-                    <span class="card-icon">01</span>
-                    <h3>Latar Belakang</h3>
-                    <p>Minangkabau kaya dengan kesenian tradisional dan pencak silat yang merupakan peninggalan nenek moyang kita, salah satunya kesenian randai. Kesenian randai dan pencak silat ini dapat menjadi jalan untuk mengatasi pengangguran dan kemiskinan.</p>
-                    <p>Pengangguran semakin meningkat setiap tahun, begitu juga kemiskinan yang masih menjadi permasalahan serius yang dihadapi pemerintah. Di antara penyebab tingginya angka pengangguran di Indonesia adalah jumlah pencari kerja yang lebih besar dari jumlah peluang kerja, kesenjangan antara kompetensi pencari kerja dengan kebutuhan pasar kerja, serta masih banyaknya anak putus sekolah yang tidak memiliki keterampilan untuk mandiri. Permasalahan ini perlu dicarikan solusi agar tidak berlarut-larut.</p>
-                    <p>Melihat kondisi tersebut, pengurus Perguruan Pencak Silat Kuranji Sejati, yang sudah tiga puluh tiga tahun mengembangkan pelestarian kebudayaan Minangkabau, membekali mereka dengan keterampilan pencak silat, kesenian randai, tari-tarian, dan musik tradisional Minangkabau.</p>
+        <section class="section profile-section section-snap" id="perguruan">
+            <header class="section-head">
+                <div>
+                    <p class="eyebrow">Tentang Kami</p>
+                    <h2>Profil Perguruan</h2>
+                </div>
+                <p>Perguruan Pencak Silat Kuranji Sejati adalah sasaran silek tradisional di Rimbo Tarok, Kuranji, Kota Padang, yang membekali generasi muda dengan pencak silat, randai, tari-tarian, dan musik tradisional Minangkabau.</p>
+            </header>
+            <div class="profile-intro-grid">
+                <article class="background-card section-snap" id="latar-belakang">
+                    <div class="background-card-title">
+                        <span class="card-icon">01</span>
+                        <h3>Latar Belakang</h3>
+                    </div>
+                    <div class="background-card-body">
+                        <p>Minangkabau kaya dengan kesenian tradisional dan pencak silat yang merupakan peninggalan nenek moyang kita, salah satunya kesenian randai. Kesenian randai dan pencak silat ini dapat menjadi jalan untuk mengatasi pengangguran dan kemiskinan.</p>
+                        <p>Pengangguran semakin meningkat setiap tahun, begitu juga kemiskinan yang masih menjadi permasalahan serius yang dihadapi pemerintah. Di antara penyebab tingginya angka pengangguran di Indonesia adalah jumlah pencari kerja yang lebih besar dari jumlah peluang kerja, kesenjangan antara kompetensi pencari kerja dengan kebutuhan pasar kerja, serta masih banyaknya anak putus sekolah yang tidak memiliki keterampilan untuk mandiri. Permasalahan ini perlu dicarikan solusi agar tidak berlarut-larut.</p>
+                        <p>Melihat kondisi tersebut, pengurus Perguruan Pencak Silat Kuranji Sejati, yang sudah tiga puluh tiga tahun mengembangkan pelestarian kebudayaan Minangkabau, membekali mereka dengan keterampilan pencak silat, kesenian randai, tari-tarian, dan musik tradisional Minangkabau.</p>
+                    </div>
                 </article>
-                <article class="story-card section-snap" id="maksud-tujuan">
-                    <span class="card-icon">02</span>
-                    <h3>Maksud dan Tujuan</h3>
-                    <h4>Maksud</h4>
-                    <ul class="story-list">
-                        <li>Membangun dan melestarikan kesenian daerah, terutama silek tradisional, yang merupakan bagian dari kesenian yang tumbuh dan berkembang di masyarakat, termasuk di wilayah Kota Padang.</li>
-                        <li>Menumbuhkembangkan kearifan lokal pada generasi muda sebagai generasi penerus melalui pengenalan dan keterlibatan mereka dalam kreativitas silek tradisional.</li>
-                    </ul>
-                    <h4>Tujuan</h4>
-                    <ul class="story-list">
-                        <li>Melestarikan kesenian silek tradisional serta mengembangkannya di kalangan generasi muda, khususnya di Kecamatan Kuranji.</li>
-                        <li>Melaksanakan pembinaan dan latihan bagi kalangan muda sebagai generasi penerus.</li>
-                    </ul>
-                </article>
+                <div class="purpose-grid section-snap" id="maksud-tujuan">
+                    <article class="purpose-card">
+                        <span class="card-icon">02</span>
+                        <h3>Maksud</h3>
+                        <ul class="story-list">
+                            <li>Membangun dan melestarikan kesenian daerah, terutama silek tradisional, yang merupakan bagian dari kesenian yang tumbuh dan berkembang di masyarakat, termasuk di wilayah Kota Padang.</li>
+                            <li>Menumbuhkembangkan kearifan lokal pada generasi muda sebagai generasi penerus melalui pengenalan dan keterlibatan mereka dalam kreativitas silek tradisional.</li>
+                        </ul>
+                    </article>
+                    <article class="purpose-card">
+                        <span class="card-icon">03</span>
+                        <h3>Tujuan</h3>
+                        <ul class="story-list">
+                            <li>Melestarikan kesenian silek tradisional serta mengembangkannya di kalangan generasi muda, khususnya di Kecamatan Kuranji.</li>
+                            <li>Melaksanakan pembinaan dan latihan bagi kalangan muda sebagai generasi penerus.</li>
+                        </ul>
+                    </article>
+                </div>
             </div>
         </section>
 
-        <section class="section muted-section section-snap" id="visi-misi">
-            <div class="section-lead">
+        <section class="section profile-section is-muted section-snap" id="visi-misi">
+            <header class="section-head is-center">
                 <p class="eyebrow">Visi & Misi</p>
                 <h2>Visi dan Misi Perguruan</h2>
                 <p>Arah yang menjadi pegangan Kuranji Sejati dalam mengembangkan seni dan budaya bersama masyarakat.</p>
-            </div>
-            <div class="vision-layout">
-                <article class="vision-card">
-                    <span class="vision-label">Visi</span>
-                    <p>Mengembangkan potensi masyarakat yang berkarakter, kreatif, inovatif, dan berkolaboratif melalui seni dan budaya.</p>
-                </article>
-                <div class="mission-block">
-                    <h3>Misi</h3>
-                    <ol class="mission-list">
-                        <li><span>01</span><p>Menjalin kerja sama dengan masyarakat dalam pengembangan seni dan budaya.</p></li>
-                        <li><span>02</span><p>Melaksanakan proses berkesenian secara rutin.</p></li>
-                        <li><span>03</span><p>Menggiatkan pelatihan anggota dan masyarakat sekitar sebagai wujud pelestarian dan pengembangan seni dan budaya.</p></li>
-                        <li><span>04</span><p>Memberikan kemudahan kepada masyarakat untuk berpartisipasi dalam pengembangan seni dan budaya.</p></li>
-                    </ol>
-                </div>
-            </div>
-        </section>
-
-        <section class="section intro-section history-story-section section-snap" id="sejarah">
-            <div class="section-lead">
-                <p class="eyebrow">Sejarah</p>
-                <h2>Sejarah Berdiri Kuranji Sejati</h2>
-                <p>Dari Sasaran Surau Pondok pada tahun 1973 hingga diresmikan sebagai Perguruan Pencak Silat Kuranji Sejati.</p>
-            </div>
-            <article class="story-card history-story">
-                <p>Pada tahun 1973, beberapa orang guru silat Pauh mengajar silat dan randai di satu tempat yang diberi nama <strong>Sasaran Surau Pondok</strong>, beralamat di Jalan Rimbo Tarok RT 04/RW 09, Kelurahan Kuranji, Kecamatan Kuranji, Kanagarian Pauh Sambilan. Nama-nama guru tersebut di antaranya alm. Munir, alm. Jabar, alm. Syair, alm. Basir, dan kawan-kawan.</p>
-                <p>Awalnya proses belajar mengajar berjalan lebih kurang selama sepuluh tahun, namun sempat berhenti selama beberapa tahun. Pada tahun 1986, guru-guru silat tersebut menghidupkan kembali Sasaran Surau Pondok dan menerima murid-murid baru yang ingin bergabung. Tempat latihannya pun sedikit berpindah dari tempat lama.</p>
-                <p>Setelah berjalan selama satu tahun, sasaran ini diresmikan. Atas kesepakatan para guru, ninik mamak, serta Tuo Tapian Kuranji, sasaran diberi nama <strong>Perguruan Pencak Silat Kuranji Sejati</strong>.</p>
-                <p>Perjuangan inilah yang dilanjutkan dan dikembangkan oleh M. Zen dan kawan-kawan sampai saat ini, di sasaran yang beralamat di Rimbo Tarok RT 001/RW 009, Kelurahan Kuranji, Kecamatan Kuranji, Kota Padang.</p>
+            </header>
+            <article class="vision-card">
+                <span class="vision-label">Visi</span>
+                <p>Mengembangkan potensi masyarakat yang berkarakter, kreatif, inovatif, dan berkolaboratif melalui seni dan budaya.</p>
             </article>
-            <div class="timeline-panel history-timeline">
-                <article><time>1973</time><strong>Sasaran Surau Pondok</strong><span>Guru-guru silat Pauh mengajar silat dan randai di Rimbo Tarok, Kuranji.</span></article>
-                <article><time>1986</time><strong>Dihidupkan Kembali</strong><span>Sasaran kembali menerima murid baru dan tempat latihan sedikit berpindah.</span></article>
-                <article><time>1987</time><strong>Kuranji Sejati</strong><span>Diresmikan dan diberi nama atas kesepakatan guru, ninik mamak, dan Tuo Tapian Kuranji.</span></article>
-                <article><time>2008</time><strong>Pengukuhan Tuo Silek</strong><span>Kaharudin mengukuhkan Bustami J., alm. Syafril, Syofian, dan M. Zen sebagai Tuo Silek.</span></article>
-                <article><time>Kini</time><strong>Terus Berkembang</strong><span>M. Zen dan kawan-kawan melanjutkan dan mengembangkan perguruan.</span></article>
-            </div>
+            <ol class="mission-list" aria-label="Misi">
+                <li><span>Misi 01</span><p>Menjalin kerja sama dengan masyarakat dalam pengembangan seni dan budaya.</p></li>
+                <li><span>Misi 02</span><p>Melaksanakan proses berkesenian secara rutin.</p></li>
+                <li><span>Misi 03</span><p>Menggiatkan pelatihan anggota dan masyarakat sekitar sebagai wujud pelestarian dan pengembangan seni dan budaya.</p></li>
+                <li><span>Misi 04</span><p>Memberikan kemudahan kepada masyarakat untuk berpartisipasi dalam pengembangan seni dan budaya.</p></li>
+            </ol>
         </section>
 
-        <section class="section muted-section section-snap" id="silsilah-tuo-silek">
-            <div class="section-lead">
+        <section class="section profile-section section-snap" id="sejarah">
+            <header class="section-head">
+                <div>
+                    <p class="eyebrow">Sejarah</p>
+                    <h2>Sejarah Berdiri Kuranji Sejati</h2>
+                </div>
+                <p>Dari Sasaran Surau Pondok pada tahun 1973 hingga diresmikan sebagai Perguruan Pencak Silat Kuranji Sejati dan diteruskan sampai hari ini.</p>
+            </header>
+            <ol class="era-timeline">
+                <li>
+                    <time>1973</time>
+                    <span class="era-marker" aria-hidden="true"></span>
+                    <div class="era-entry">
+                        <h3>Sasaran Surau Pondok</h3>
+                        <p>Beberapa orang guru silat Pauh mengajar silat dan randai di satu tempat yang diberi nama Sasaran Surau Pondok, beralamat di Jalan Rimbo Tarok RT 04/RW 09, Kelurahan Kuranji, Kecamatan Kuranji, Kanagarian Pauh Sambilan. Nama-nama guru tersebut di antaranya alm. Munir, alm. Jabar, alm. Syair, alm. Basir, dan kawan-kawan.</p>
+                        <p>Proses belajar mengajar berjalan lebih kurang selama sepuluh tahun, namun sempat berhenti selama beberapa tahun.</p>
+                    </div>
+                </li>
+                <li>
+                    <time>1986</time>
+                    <span class="era-marker" aria-hidden="true"></span>
+                    <div class="era-entry">
+                        <h3>Dihidupkan Kembali</h3>
+                        <p>Guru-guru silat tersebut menghidupkan kembali Sasaran Surau Pondok dan menerima murid-murid baru yang ingin bergabung. Tempat latihannya pun sedikit berpindah dari tempat lama.</p>
+                    </div>
+                </li>
+                <li>
+                    <time>1987</time>
+                    <span class="era-marker" aria-hidden="true"></span>
+                    <div class="era-entry">
+                        <h3>Lahirnya Kuranji Sejati</h3>
+                        <p>Setelah berjalan selama satu tahun, sasaran ini diresmikan. Atas kesepakatan para guru, ninik mamak, serta Tuo Tapian Kuranji, sasaran diberi nama Perguruan Pencak Silat Kuranji Sejati.</p>
+                    </div>
+                </li>
+                <li>
+                    <time>2008</time>
+                    <span class="era-marker" aria-hidden="true"></span>
+                    <div class="era-entry">
+                        <h3>Pengukuhan Tuo Silek</h3>
+                        <p>Kaharudin sebagai guru mengangkat dan mengukuhkan beberapa orang muridnya sebagai Tuo Silek: Bustami J., alm. Syafril, Syofian, dan M. Zen.</p>
+                    </div>
+                </li>
+                <li>
+                    <time>Kini</time>
+                    <span class="era-marker" aria-hidden="true"></span>
+                    <div class="era-entry">
+                        <h3>Diteruskan hingga Hari Ini</h3>
+                        <p>Perjuangan ini dilanjutkan dan dikembangkan oleh M. Zen dan kawan-kawan sampai saat ini, di sasaran yang beralamat di Rimbo Tarok RT 001/RW 009, Kelurahan Kuranji, Kecamatan Kuranji, Kota Padang.</p>
+                    </div>
+                </li>
+            </ol>
+        </section>
+
+        <section class="section profile-section is-muted section-snap" id="silsilah-tuo-silek">
+            <header class="section-head is-center">
                 <p class="eyebrow">Silsilah</p>
                 <h2>Silsilah Tuo Silek</h2>
                 <p>Guru, pendiri, dan tuo silek yang menjaga kesinambungan ilmu, adab latihan, dan pewarisan budaya di Kuranji Sejati.</p>
+            </header>
+            <div class="portrait-grid">
+                <?php
+                $portraits = array(
+                    array('file' => 'darwis-rajo-putih.jpg', 'name' => 'Darwis Rajo Putih', 'role' => 'Pendiri Perguruan Surau Pondok'),
+                    array('file' => 'munir.jpg', 'name' => 'Alm. Munir', 'role' => 'Guru silat Pauh di Sasaran Surau Pondok'),
+                    array('file' => 'm-zen.jpg', 'name' => 'M. Zen', 'role' => 'Tuo Silek, penerus Kuranji Sejati hingga kini'),
+                );
+                foreach ($portraits as $portrait) :
+                    $portrait_uri = $profil_uri . $portrait['file'];
+                    ?>
+                    <figure class="portrait-card">
+                        <button type="button" class="gallery-open portrait-open" data-gallery-full="<?php echo esc_url($portrait_uri); ?>" data-gallery-caption="<?php echo esc_attr($portrait['name'] . ' - ' . $portrait['role']); ?>">
+                            <img src="<?php echo esc_url($portrait_uri); ?>" alt="Foto <?php echo esc_attr($portrait['name']); ?>" loading="lazy">
+                        </button>
+                        <figcaption>
+                            <strong><?php echo esc_html($portrait['name']); ?></strong>
+                            <span><?php echo esc_html($portrait['role']); ?></span>
+                        </figcaption>
+                    </figure>
+                <?php endforeach; ?>
             </div>
-            <div class="lineage-panel">
-                <div class="portrait-grid">
-                    <?php
-                    $portraits = array(
-                        array('file' => 'darwis-rajo-putih.jpg', 'name' => 'Darwis Rajo Putih', 'role' => 'Pendiri Perguruan Surau Pondok'),
-                        array('file' => 'munir.jpg', 'name' => 'Alm. Munir', 'role' => 'Guru silat Pauh di Sasaran Surau Pondok'),
-                        array('file' => 'm-zen.jpg', 'name' => 'M. Zen', 'role' => 'Tuo Silek, penerus Kuranji Sejati hingga kini'),
-                    );
-                    foreach ($portraits as $portrait) :
-                        $portrait_uri = $profil_uri . $portrait['file'];
-                        ?>
-                        <figure class="portrait-card">
-                            <button type="button" class="gallery-open portrait-open" data-gallery-full="<?php echo esc_url($portrait_uri); ?>" data-gallery-caption="<?php echo esc_attr($portrait['name'] . ' - ' . $portrait['role']); ?>">
-                                <img src="<?php echo esc_url($portrait_uri); ?>" alt="Foto <?php echo esc_attr($portrait['name']); ?>" loading="lazy">
-                            </button>
-                            <figcaption>
-                                <strong><?php echo esc_html($portrait['name']); ?></strong>
-                                <span><?php echo esc_html($portrait['role']); ?></span>
-                            </figcaption>
-                        </figure>
-                    <?php endforeach; ?>
-                </div>
-                <ol class="lineage-steps">
-                    <li class="lineage-step">
-                        <span class="lineage-label">1973</span>
-                        <h3>Guru Silat Pauh</h3>
-                        <p>Mengajar silat dan randai di Sasaran Surau Pondok.</p>
-                        <ul class="name-list"><li>Alm. Munir</li><li>Alm. Jabar</li><li>Alm. Syair</li><li>Alm. Basir</li><li>dan kawan-kawan</li></ul>
-                    </li>
-                    <li class="lineage-step">
-                        <span class="lineage-label">Pendiri</span>
-                        <h3>Perguruan Surau Pondok</h3>
-                        <ul class="name-list"><li>Darwis Rajo Putih</li></ul>
-                    </li>
-                    <li class="lineage-step">
-                        <span class="lineage-label">Tuo Silek</span>
-                        <h3>Tuo Silek Perguruan</h3>
-                        <ul class="name-list"><li>Kaharudin</li><li>Mawardi</li></ul>
-                    </li>
-                    <li class="lineage-step">
-                        <span class="lineage-label">2008</span>
-                        <h3>Tuo Silek yang Dikukuhkan</h3>
-                        <p>Kaharudin sebagai guru mengangkat dan mengukuhkan beberapa orang muridnya sebagai Tuo Silek di Perguruan Kuranji Sejati.</p>
-                        <ul class="name-list"><li>Bustami J.</li><li>Alm. Syafril</li><li>Syofian</li><li>M. Zen</li></ul>
-                    </li>
-                </ol>
-            </div>
+            <ol class="lineage-steps">
+                <li class="lineage-step">
+                    <span class="lineage-label">1973</span>
+                    <h3>Guru Silat Pauh</h3>
+                    <ul class="name-list"><li>Alm. Munir</li><li>Alm. Jabar</li><li>Alm. Syair</li><li>Alm. Basir</li><li>dan kawan-kawan</li></ul>
+                </li>
+                <li class="lineage-step">
+                    <span class="lineage-label">Pendiri</span>
+                    <h3>Perguruan Surau Pondok</h3>
+                    <ul class="name-list"><li>Darwis Rajo Putih</li></ul>
+                </li>
+                <li class="lineage-step">
+                    <span class="lineage-label">Tuo Silek</span>
+                    <h3>Tuo Silek Perguruan</h3>
+                    <ul class="name-list"><li>Kaharudin</li><li>Mawardi</li></ul>
+                </li>
+                <li class="lineage-step">
+                    <span class="lineage-label">2008</span>
+                    <h3>Dikukuhkan oleh Kaharudin</h3>
+                    <ul class="name-list"><li>Bustami J.</li><li>Alm. Syafril</li><li>Syofian</li><li>M. Zen</li></ul>
+                </li>
+            </ol>
         </section>
 
-        <section class="section history-section section-snap" id="data-umum">
-            <div class="venue-panel">
-                <div class="venue-heading">
-                    <p class="eyebrow">Sasaran Latihan</p>
+        <section class="section profile-section section-snap" id="data-umum">
+            <header class="section-head">
+                <div>
+                    <p class="eyebrow">Data Umum</p>
                     <h2>Data Umum Perguruan</h2>
-                    <p>Sasaran Kuranji Sejati berada di atas tanah wakaf seluas 10 x 15 m di Rimbo Tarok, Kuranji. Berikut kondisi lokasi latihan sebelum dan sesudah perbaikan.</p>
                 </div>
-                <div class="venue-photos">
-                    <?php
-                    $venue_photos = array(
-                        array('file' => 'lokasi-sebelum-perbaikan.jpg', 'label' => 'Sebelum', 'caption' => 'Lokasi latihan sebelum perbaikan'),
-                        array('file' => 'lokasi-sesudah-perbaikan.jpg', 'label' => 'Sesudah', 'caption' => 'Lokasi latihan sesudah perbaikan'),
-                    );
-                    foreach ($venue_photos as $venue_photo) :
-                        $venue_uri = $profil_uri . $venue_photo['file'];
-                        ?>
-                        <figure class="venue-photo">
-                            <button type="button" class="gallery-open" data-gallery-full="<?php echo esc_url($venue_uri); ?>" data-gallery-caption="<?php echo esc_attr($venue_photo['caption']); ?>">
-                                <img src="<?php echo esc_url($venue_uri); ?>" alt="<?php echo esc_attr($venue_photo['caption']); ?>" loading="lazy">
-                            </button>
-                            <figcaption><span><?php echo esc_html($venue_photo['label']); ?></span><?php echo esc_html($venue_photo['caption']); ?></figcaption>
-                        </figure>
-                    <?php endforeach; ?>
-                </div>
+                <p>Sasaran Kuranji Sejati berada di atas tanah wakaf seluas 10 x 15 m di Rimbo Tarok, Kuranji. Berikut data perguruan serta kondisi lokasi latihan sebelum dan sesudah perbaikan.</p>
+            </header>
+            <dl class="data-sheet">
+                <div><dt>Nama Sasaran/Perguruan</dt><dd>Kuranji Sejati</dd></div>
+                <div><dt>Jalan</dt><dd>Jalan Rimbo Tarok RT 01/RW 09</dd></div>
+                <div><dt>Kelurahan</dt><dd>Kuranji</dd></div>
+                <div><dt>Kecamatan</dt><dd>Kuranji</dd></div>
+                <div><dt>Kabupaten/Kota</dt><dd>Padang</dd></div>
+                <div><dt>Provinsi</dt><dd>Sumatera Barat</dd></div>
+                <div><dt>Kode Pos</dt><dd>25057</dd></div>
+                <div><dt>Nomor HP/WA</dt><dd><a href="https://wa.me/6281266496469">0812-6649-6469</a></dd></div>
+                <div><dt>Tahun Operasional</dt><dd>2018</dd></div>
+                <div><dt>Jumlah Anak Sasian</dt><dd>25 orang</dd></div>
+                <div><dt>Status Tanah</dt><dd>Wakaf</dd></div>
+                <div><dt>Luas Tanah</dt><dd>10 x 15 m</dd></div>
+            </dl>
+            <div class="venue-photos">
+                <?php
+                $venue_photos = array(
+                    array('file' => 'lokasi-sebelum-perbaikan.jpg', 'label' => 'Sebelum', 'caption' => 'Lokasi latihan sebelum perbaikan'),
+                    array('file' => 'lokasi-sesudah-perbaikan.jpg', 'label' => 'Sesudah', 'caption' => 'Lokasi latihan sesudah perbaikan'),
+                );
+                foreach ($venue_photos as $venue_photo) :
+                    $venue_uri = $profil_uri . $venue_photo['file'];
+                    ?>
+                    <figure class="venue-photo">
+                        <button type="button" class="gallery-open" data-gallery-full="<?php echo esc_url($venue_uri); ?>" data-gallery-caption="<?php echo esc_attr($venue_photo['caption']); ?>">
+                            <img src="<?php echo esc_url($venue_uri); ?>" alt="<?php echo esc_attr($venue_photo['caption']); ?>" loading="lazy">
+                        </button>
+                        <figcaption><span><?php echo esc_html($venue_photo['label']); ?></span><?php echo esc_html($venue_photo['caption']); ?></figcaption>
+                    </figure>
+                <?php endforeach; ?>
             </div>
-            <aside class="identity-card">
-                <p class="eyebrow">Data Umum</p>
-                <h3>Kuranji Sejati</h3>
-                <dl class="data-grid">
-                    <div class="is-wide"><dt>Nama Sasaran/Perguruan</dt><dd>Kuranji Sejati</dd></div>
-                    <div class="is-wide"><dt>Jalan</dt><dd>Jalan Rimbo Tarok RT 01/RW 09</dd></div>
-                    <div><dt>Kelurahan</dt><dd>Kuranji</dd></div>
-                    <div><dt>Kecamatan</dt><dd>Kuranji</dd></div>
-                    <div><dt>Kabupaten/Kota</dt><dd>Padang</dd></div>
-                    <div><dt>Provinsi</dt><dd>Sumatera Barat</dd></div>
-                    <div><dt>Kode Pos</dt><dd>25057</dd></div>
-                    <div><dt>Nomor HP/WA</dt><dd><a href="https://wa.me/6281266496469">0812-6649-6469</a></dd></div>
-                    <div><dt>Tahun Operasional</dt><dd>2018</dd></div>
-                    <div><dt>Jumlah Anak Sasian</dt><dd>25 orang</dd></div>
-                    <div><dt>Status Tanah</dt><dd>Wakaf</dd></div>
-                    <div><dt>Luas Tanah</dt><dd>10 x 15 m</dd></div>
-                </dl>
-            </aside>
         </section>
 
-        <section class="section muted-section section-snap" id="kegiatan">
-            <div class="section-lead">
-                <p class="eyebrow">Program Perguruan</p>
-                <h2>Program dan kegiatan perguruan.</h2>
-                <p>
-                    Kuranji Sejati membekali anggota dan anak-anak sekitar dengan pencak silat, randai, tari-tarian, serta musik tradisional Minangkabau.
-                </p>
-                <a class="button" href="#agenda">Lihat Semua Kegiatan</a>
-            </div>
+        <section class="section profile-section is-muted section-snap" id="kegiatan">
+            <header class="section-head">
+                <div>
+                    <p class="eyebrow">Program Perguruan</p>
+                    <h2>Program dan Kegiatan</h2>
+                </div>
+                <div>
+                    <p>Kuranji Sejati membekali anggota dan anak-anak sekitar dengan pencak silat, randai, tari-tarian, serta musik tradisional Minangkabau.</p>
+                    <a class="button" href="#agenda">Lihat Semua Kegiatan</a>
+                </div>
+            </header>
             <div class="activity-cards">
                 <article class="activity-card section-snap" id="latihan"><span>01</span><h3>Latihan Rutin</h3><p>Pencak silat tradisional sebagai dasar gerak, disiplin, dan pewarisan nilai.</p></article>
                 <article class="activity-card section-snap" id="seni"><span>02</span><h3>Seni & Budaya</h3><p>Randai, tari piring, tari buai-buai, tari galombang, tari pasambahan, musik tradisional Minangkabau, dan pupuik batang padi.</p></article>
