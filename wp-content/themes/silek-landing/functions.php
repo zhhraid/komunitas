@@ -805,19 +805,7 @@ function silek_get_gallery_image_url($post_id, $size = 'large') {
     return '';
 }
 
-function silek_seed_gallery_content() {
-    if (get_option('silek_gallery_seed_v1')) {
-        return;
-    }
-
-    $gallery_items = array(
-        array('key' => 'latihan-rutin', 'title' => 'Latihan Rutin', 'caption' => 'Disiplin membentuk karakter', 'image' => 'foto5.jpg', 'order' => 1),
-        array('key' => 'pembukaan-kegiatan', 'title' => 'Pembukaan Kegiatan', 'caption' => 'Kuranji, Kota Padang', 'image' => 'foto2.jpg', 'order' => 2),
-        array('key' => 'ruang-latihan', 'title' => 'Ruang Latihan', 'caption' => 'Galanggang Kuranji', 'image' => 'foto1.jpg', 'order' => 3),
-        array('key' => 'suasana-padepokan', 'title' => 'Suasana Padepokan', 'caption' => 'Pengabdian masyarakat', 'image' => 'foto3.jpg', 'order' => 4),
-        array('key' => 'kebersamaan', 'title' => 'Kebersamaan', 'caption' => 'Dokumentasi tempat', 'image' => 'foto4.jpg', 'order' => 5),
-    );
-
+function silek_insert_gallery_items($gallery_items) {
     foreach ($gallery_items as $item) {
         $existing = get_posts(array(
             'post_type' => 'silek_gallery',
@@ -844,10 +832,39 @@ function silek_seed_gallery_content() {
             update_post_meta($post_id, '_silek_gallery_image', $item['image']);
         }
     }
+}
+
+function silek_seed_gallery_content() {
+    if (get_option('silek_gallery_seed_v1')) {
+        return;
+    }
+
+    silek_insert_gallery_items(array(
+        array('key' => 'latihan-rutin', 'title' => 'Latihan Rutin', 'caption' => 'Disiplin membentuk karakter', 'image' => 'foto5.jpg', 'order' => 1),
+        array('key' => 'pembukaan-kegiatan', 'title' => 'Pembukaan Kegiatan', 'caption' => 'Kuranji, Kota Padang', 'image' => 'foto2.jpg', 'order' => 2),
+        array('key' => 'ruang-latihan', 'title' => 'Ruang Latihan', 'caption' => 'Galanggang Kuranji', 'image' => 'foto1.jpg', 'order' => 3),
+        array('key' => 'suasana-padepokan', 'title' => 'Suasana Padepokan', 'caption' => 'Pengabdian masyarakat', 'image' => 'foto3.jpg', 'order' => 4),
+        array('key' => 'kebersamaan', 'title' => 'Kebersamaan', 'caption' => 'Dokumentasi tempat', 'image' => 'foto4.jpg', 'order' => 5),
+    ));
 
     update_option('silek_gallery_seed_v1', 1, false);
 }
 add_action('init', 'silek_seed_gallery_content', 27);
+
+function silek_seed_profile_gallery_content() {
+    if (get_option('silek_gallery_seed_v2')) {
+        return;
+    }
+
+    silek_insert_gallery_items(array(
+        array('key' => 'randai-latihan', 'title' => 'Randai', 'caption' => 'Latihan randai anak sasian', 'image' => 'randai-latihan.jpg', 'order' => 6),
+        array('key' => 'silat-tradisi', 'title' => 'Silat Tradisi', 'caption' => 'Latihan silek tradisional Kuranji Sejati', 'image' => 'silat-tradisi.jpg', 'order' => 7),
+        array('key' => 'randai-galanggang', 'title' => 'Randai', 'caption' => 'Latihan randai di galanggang', 'image' => 'randai-galanggang.jpg', 'order' => 8),
+    ));
+
+    update_option('silek_gallery_seed_v2', 1, false);
+}
+add_action('init', 'silek_seed_profile_gallery_content', 28);
 function silek_flush_rewrite_rules_once() {
     if (!get_option('silek_rewrite_rules_v2')) {
         flush_rewrite_rules(false);
