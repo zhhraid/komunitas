@@ -796,9 +796,11 @@ function silek_get_gallery_image_url($post_id, $size = 'large') {
 
     $legacy_image = basename((string) get_post_meta($post_id, '_silek_gallery_image', true));
     if ($legacy_image && preg_match('/^[a-zA-Z0-9._-]+$/', $legacy_image)) {
-        $image_path = get_template_directory() . '/assets/images/gallery/' . $legacy_image;
-        if (file_exists($image_path)) {
-            return get_template_directory_uri() . '/assets/images/gallery/' . $legacy_image;
+        foreach (array('gallery', 'profil') as $folder) {
+            $image_path = get_template_directory() . '/assets/images/' . $folder . '/' . $legacy_image;
+            if (file_exists($image_path)) {
+                return get_template_directory_uri() . '/assets/images/' . $folder . '/' . $legacy_image;
+            }
         }
     }
 
@@ -852,7 +854,7 @@ function silek_seed_gallery_content() {
 add_action('init', 'silek_seed_gallery_content', 27);
 
 function silek_seed_profile_gallery_content() {
-    if (get_option('silek_gallery_seed_v2')) {
+    if (get_option('silek_gallery_seed_v3')) {
         return;
     }
 
@@ -860,9 +862,14 @@ function silek_seed_profile_gallery_content() {
         array('key' => 'randai-latihan', 'title' => 'Randai', 'caption' => 'Latihan randai anak sasian', 'image' => 'randai-latihan.jpg', 'order' => 6),
         array('key' => 'silat-tradisi', 'title' => 'Silat Tradisi', 'caption' => 'Latihan silek tradisional Kuranji Sejati', 'image' => 'silat-tradisi.jpg', 'order' => 7),
         array('key' => 'randai-galanggang', 'title' => 'Randai', 'caption' => 'Latihan randai di galanggang', 'image' => 'randai-galanggang.jpg', 'order' => 8),
+        array('key' => 'lokasi-sebelum-perbaikan', 'title' => 'Lokasi Latihan Sebelum Perbaikan', 'caption' => 'Sasaran Kuranji Sejati sebelum diperbaiki', 'image' => 'lokasi-sebelum-perbaikan.jpg', 'order' => 9),
+        array('key' => 'lokasi-sesudah-perbaikan', 'title' => 'Lokasi Latihan Sesudah Perbaikan', 'caption' => 'Sasaran Kuranji Sejati sesudah diperbaiki', 'image' => 'lokasi-sesudah-perbaikan.jpg', 'order' => 10),
+        array('key' => 'darwis-rajo-putih', 'title' => 'Darwis Rajo Putih', 'caption' => 'Pendiri Perguruan Surau Pondok', 'image' => 'darwis-rajo-putih.jpg', 'order' => 11),
+        array('key' => 'munir', 'title' => 'Alm. Munir', 'caption' => 'Guru silat Pauh di Sasaran Surau Pondok', 'image' => 'munir.jpg', 'order' => 12),
+        array('key' => 'm-zen', 'title' => 'M. Zen', 'caption' => 'Tuo Silek, penerus Kuranji Sejati hingga kini', 'image' => 'm-zen.jpg', 'order' => 13),
     ));
 
-    update_option('silek_gallery_seed_v2', 1, false);
+    update_option('silek_gallery_seed_v3', 1, false);
 }
 add_action('init', 'silek_seed_profile_gallery_content', 28);
 function silek_flush_rewrite_rules_once() {
