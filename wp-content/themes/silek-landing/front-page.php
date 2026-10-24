@@ -331,7 +331,6 @@ $profil_uri      = $theme_uri . '/assets/images/profil/';
                         <li><span><?php echo esc_html(sprintf('%02d', $index + 1)); ?></span><?php echo esc_html($program); ?></li>
                     <?php endforeach; ?>
                 </ol>
-                <p>Semua program ini kami laksanakan dengan merekrut anak-anak di sekitar perguruan. Alhamdulillah, sudah ada di antara mereka yang bermodalkan kesenian randai dan pencak silat.</p>
             </div>
         </section>
 

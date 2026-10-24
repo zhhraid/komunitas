@@ -3546,11 +3546,6 @@ img {
   font-weight: 1000;
 }
 
-.program-panel > p {
-  margin: 16px 0 0;
-  color: var(--muted);
-}
-
 @media (max-width: 1180px) {
   .history-timeline {
     grid-template-columns: repeat(3, minmax(0, 1fr));
