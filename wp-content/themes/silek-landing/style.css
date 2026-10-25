@@ -3,7 +3,7 @@ Theme Name: Silek Landing
 Theme URI: http://silek.test/
 Author: Silek
 Description: Custom one-page landing page for a Silek community website.
-Version: 1.11.1
+Version: 1.11.2
 Requires at least: 6.0
 Tested up to: 6.8
 Requires PHP: 7.4
@@ -3955,4 +3955,19 @@ img {
 
 .event-detail-box .event-detail-note {
   grid-column: 1 / -1;
+}
+
+.error-404 {
+  display: grid;
+  place-items: center;
+  min-height: 60vh;
+  padding: 60px 20px;
+}
+
+.error-404 h1 {
+  margin: 0;
+  color: var(--gold-deep);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(6rem, 22vw, 13rem);
+  line-height: 1;
 }
