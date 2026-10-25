@@ -1,8 +1,4 @@
 <?php
-$theme_uri = get_template_directory_uri();
-$brand_logo_path = get_template_directory() . '/assets/images/logo-kuranji-sejati.png';
-$brand_logo_uri = $theme_uri . '/assets/images/logo-kuranji-sejati.png';
-
 the_post();
 $post_type = get_post_type();
 $is_event = $post_type === 'silek_event';
@@ -13,38 +9,20 @@ $event_date = get_post_meta(get_the_ID(), '_silek_event_date', true);
 $event_time = get_post_meta(get_the_ID(), '_silek_event_time', true);
 $event_location = get_post_meta(get_the_ID(), '_silek_event_location', true);
 $registration_url = get_post_meta(get_the_ID(), '_silek_event_registration_url', true);
+$is_past_event = $is_event && $event_date && $event_date < wp_date('Y-m-d');
 $taxonomy = $is_event ? 'silek_event_category' : 'silek_news_category';
 $terms = get_the_terms(get_the_ID(), $taxonomy);
-?>
-<!doctype html>
-<html <?php language_attributes(); ?>>
-<head>
-    <meta charset="<?php bloginfo('charset'); ?>">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <?php wp_head(); ?>
-</head>
-<body <?php body_class('content-detail-page'); ?>>
-<?php wp_body_open(); ?>
 
-<div class="site-shell detail-shell">
-    <header class="site-header detail-site-header">
-        <nav class="nav" aria-label="Navigasi halaman detail">
-            <a class="brand" href="<?php echo esc_url(home_url('/#beranda')); ?>">
-                <?php if (file_exists($brand_logo_path)) : ?>
-                    <img class="brand-logo" src="<?php echo esc_url($brand_logo_uri); ?>" alt="Logo Perguruan Pencak Silat Kuranji Sejati" width="48" height="48">
-                <?php else : ?>
-                    <span class="brand-mark">KS</span>
-                <?php endif; ?>
-                <span class="brand-name">Perguruan Pencak Silat<br>Kuranji Sejati</span>
-            </a>
-            <a class="detail-nav-back" href="<?php echo esc_url(home_url('/#agenda')); ?>">Kembali ke Berita & Event</a>
-        </nav>
-    </header>
+get_header('detail', array(
+    'body_class' => 'content-detail-page',
+    'active' => $is_event ? 'event' : 'news',
+));
+?>
 
     <main class="single-content-wrap">
         <article <?php post_class('single-article'); ?>>
             <header class="single-article-header">
-                <a class="single-back-link" href="<?php echo esc_url(home_url('/#agenda')); ?>">Kembali</a>
+                <a class="single-back-link" href="<?php echo esc_url(get_post_type_archive_link($is_event ? 'silek_event' : 'silek_news')); ?>">Kembali</a>
                 <p class="eyebrow"><?php echo esc_html($content_label); ?></p>
                 <h1><?php the_title(); ?></h1>
                 <div class="single-meta">
@@ -55,6 +33,9 @@ $terms = get_the_terms(get_the_ID(), $taxonomy);
                     <?php endif; ?>
                     <?php if ($terms && !is_wp_error($terms)) : ?>
                         <span><?php echo esc_html($terms[0]->name); ?></span>
+                    <?php endif; ?>
+                    <?php if ($is_past_event) : ?>
+                        <span class="event-status">Selesai</span>
                     <?php endif; ?>
                 </div>
             </header>
@@ -70,7 +51,9 @@ $terms = get_the_terms(get_the_ID(), $taxonomy);
                     <div><span>Tanggal</span><strong><?php echo esc_html($event_date ? silek_format_event_date($event_date, 'd F Y') : 'Akan diumumkan'); ?></strong></div>
                     <div><span>Waktu</span><strong><?php echo esc_html($event_time ? silek_format_event_time($event_time) : 'Akan diumumkan'); ?></strong></div>
                     <div><span>Lokasi</span><strong><?php echo esc_html($event_location ?: 'Akan diumumkan'); ?></strong></div>
-                    <?php if ($registration_url) : ?>
+                    <?php if ($is_past_event) : ?>
+                        <p class="event-detail-note">Event ini telah selesai dilaksanakan.</p>
+                    <?php elseif ($registration_url) : ?>
                         <a class="button" href="<?php echo esc_url($registration_url); ?>" target="_blank" rel="noopener">Daftar Event</a>
                     <?php endif; ?>
                 </div>
@@ -88,20 +71,8 @@ $terms = get_the_terms(get_the_ID(), $taxonomy);
             <?php endif; ?>
         </article>
 
-        <aside class="single-sidebar">
-            <p class="eyebrow">Kuranji Sejati</p>
-            <h2>Warisan budaya terus bergerak.</h2>
-            <p>Kembali ke halaman utama untuk melihat sejarah perguruan, kegiatan, khazanah, galeri, dan jadwal terbaru.</p>
-            <a class="button" href="<?php echo esc_url(home_url('/#beranda')); ?>">Halaman Utama</a>
-        </aside>
+        <?php get_template_part('template-parts/detail-sidebar'); ?>
     </main>
 
-    <footer class="detail-footer">
-        <span>Perguruan Pencak Silat Kuranji Sejati</span>
-        <a href="<?php echo esc_url(home_url('/#kontak')); ?>">Kontak Perguruan</a>
-    </footer>
-</div>
-
-<?php wp_footer(); ?>
-</body>
-</html>
+<?php
+get_footer('detail');

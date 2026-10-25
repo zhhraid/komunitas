@@ -75,6 +75,58 @@
       });
     }
 
+    var navLinks = document.querySelector('.nav-links');
+    var header = document.querySelector('.site-header');
+    if (navLinks) {
+      var topLinks = Array.prototype.slice.call(navLinks.querySelectorAll(':scope > a, :scope > .nav-item > a'));
+      var sectionLinks = [];
+
+      topLinks.forEach(function (link) {
+        var targets = link.parentElement === navLinks
+          ? [link]
+          : [link].concat(Array.prototype.slice.call(link.parentElement.querySelectorAll('.submenu a')));
+        targets.forEach(function (target) {
+          var id = (target.getAttribute('href') || '').replace('#', '');
+          var section = id ? document.getElementById(id) : null;
+          if (section && (section.tagName === 'SECTION' || section.tagName === 'FOOTER')) {
+            sectionLinks.push({ section: section, link: link });
+          }
+        });
+      });
+
+      sectionLinks.sort(function (a, b) {
+        return a.section.compareDocumentPosition(b.section) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1;
+      });
+
+      var updateActiveLink = function () {
+        var offset = (header ? header.offsetHeight : 0) + 40;
+        var current = sectionLinks[0];
+        sectionLinks.forEach(function (item) {
+          if (item.section.getBoundingClientRect().top - offset <= 0) {
+            current = item;
+          }
+        });
+        if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) {
+          current = sectionLinks[sectionLinks.length - 1];
+        }
+        topLinks.forEach(function (link) {
+          link.classList.toggle('is-active', current && link === current.link);
+        });
+      };
+
+      var ticking = false;
+      window.addEventListener('scroll', function () {
+        if (!ticking) {
+          ticking = true;
+          window.requestAnimationFrame(function () {
+            updateActiveLink();
+            ticking = false;
+          });
+        }
+      }, { passive: true });
+      updateActiveLink();
+    }
+
     document.querySelectorAll('.mobile-menu-panel a').forEach(function (link) {
       link.addEventListener('click', function () {
         var menu = link.closest('details');

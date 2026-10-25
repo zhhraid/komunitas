@@ -32,6 +32,84 @@ add_action('wp_head', 'silek_landing_favicon', 100);
 add_action('admin_head', 'silek_landing_favicon', 100);
 add_action('login_head', 'silek_landing_favicon', 100);
 
+function silek_hide_default_posts_menu() {
+    remove_menu_page('edit.php');
+}
+add_action('admin_menu', 'silek_hide_default_posts_menu');
+
+function silek_hide_default_posts_admin_bar($wp_admin_bar) {
+    $wp_admin_bar->remove_node('new-post');
+}
+add_action('admin_bar_menu', 'silek_hide_default_posts_admin_bar', 999);
+
+function silek_hide_quick_draft_widget() {
+    remove_meta_box('dashboard_quick_press', 'dashboard', 'side');
+}
+add_action('wp_dashboard_setup', 'silek_hide_quick_draft_widget');
+
+function silek_social_meta_tags() {
+    if (defined('WPSEO_VERSION') || defined('RANK_MATH_VERSION') || defined('AIOSEO_VERSION')) {
+        return;
+    }
+
+    $title = wp_get_document_title();
+    $description = 'Perguruan Pencak Silat Kuranji Sejati di Kuranji, Kota Padang: pelestarian silek tradisional, randai, tari, dan musik tradisional Minangkabau.';
+    $image = get_template_directory_uri() . '/assets/images/gallery/silat-tradisi.jpg';
+    $url = home_url('/');
+    $type = 'website';
+
+    if (is_singular(array('silek_news', 'silek_event', 'page'))) {
+        $post_id = get_queried_object_id();
+        $excerpt = wp_strip_all_tags(get_the_excerpt($post_id));
+        $description = $excerpt ? $excerpt : $description;
+        $url = get_permalink($post_id);
+        $type = 'article';
+        if (has_post_thumbnail($post_id)) {
+            $image = get_the_post_thumbnail_url($post_id, 'large');
+        } elseif (get_post_type($post_id) === 'silek_news') {
+            $image = silek_get_news_cover_url($post_id);
+        }
+    }
+
+    $description = wp_trim_words($description, 30, '...');
+    echo '<meta name="description" content="' . esc_attr($description) . '">' . "\n";
+    echo '<meta property="og:type" content="' . esc_attr($type) . '">' . "\n";
+    echo '<meta property="og:site_name" content="' . esc_attr(get_bloginfo('name')) . '">' . "\n";
+    echo '<meta property="og:title" content="' . esc_attr($title) . '">' . "\n";
+    echo '<meta property="og:description" content="' . esc_attr($description) . '">' . "\n";
+    echo '<meta property="og:url" content="' . esc_url($url) . '">' . "\n";
+    echo '<meta property="og:image" content="' . esc_url($image) . '">' . "\n";
+    echo '<meta name="twitter:card" content="summary_large_image">' . "\n";
+}
+add_action('wp_head', 'silek_social_meta_tags', 5);
+
+function silek_limit_search_results($query) {
+    if (is_admin() || !$query->is_main_query() || !$query->is_search()) {
+        return;
+    }
+
+    $query->set('post_type', array('silek_news', 'silek_event', 'page'));
+
+    $complete_event_ids = get_posts(array(
+        'post_type' => 'silek_event',
+        'post_status' => 'publish',
+        'posts_per_page' => -1,
+        'fields' => 'ids',
+        'meta_query' => silek_complete_event_meta_query(),
+    ));
+    $all_event_ids = get_posts(array(
+        'post_type' => 'silek_event',
+        'post_status' => 'publish',
+        'posts_per_page' => -1,
+        'fields' => 'ids',
+    ));
+    $incomplete_event_ids = array_diff($all_event_ids, $complete_event_ids);
+    if ($incomplete_event_ids) {
+        $query->set('post__not_in', array_values($incomplete_event_ids));
+    }
+}
+add_action('pre_get_posts', 'silek_limit_search_results');
+
 function silek_register_content_types() {
     register_post_type('silek_news', array(
         'labels' => array(
@@ -242,6 +320,16 @@ function silek_admin_assets($hook_suffix) {
             wp_get_theme()->get('Version')
         );
     }
+
+    if ($screen->id === 'silek_event' && $screen->base === 'post') {
+        wp_enqueue_script(
+            'silek-admin-event',
+            get_template_directory_uri() . '/assets/js/admin-event.js',
+            array(),
+            wp_get_theme()->get('Version'),
+            true
+        );
+    }
 }
 add_action('admin_enqueue_scripts', 'silek_admin_assets');
 
@@ -251,7 +339,7 @@ function silek_content_meta_boxes() {
         'Sumber Berita',
         'silek_render_news_source_meta_box',
         'silek_news',
-        'normal',
+        'side',
         'high'
     );
 
@@ -271,7 +359,7 @@ function silek_render_news_source_meta_box($post) {
     $source_url = get_post_meta($post->ID, '_silek_source_url', true);
     $source_name = get_post_meta($post->ID, '_silek_source_name', true);
     ?>
-    <div class="silek-admin-fields">
+    <div class="silek-admin-fields is-stacked">
         <p>
             <label for="silek_source_name"><strong>Nama sumber</strong></label>
             <input type="text" id="silek_source_name" name="silek_source_name" value="<?php echo esc_attr($source_name); ?>" placeholder="Contoh: Universitas Andalas">
@@ -317,7 +405,7 @@ function silek_render_content_guide_meta_box($post) {
         <li>Tambahkan ringkasan singkat pada bagian Kutipan.</li>
         <li>Pilih kategori berita.</li>
         <li>Pasang gambar sampul.</li>
-        <li>Isi sumber jika berita berasal dari situs lain.</li>
+        <li>Isi kotak Sumber Berita jika berita berasal dari situs lain.</li>
     </ol>
     <?php
 }
@@ -387,19 +475,20 @@ function silek_render_event_details_meta_box($post) {
     $registration_url = get_post_meta($post->ID, '_silek_event_registration_url', true);
     ?>
     <div class="silek-admin-fields silek-event-fields">
-        <p><strong>Isi tanggal, waktu, dan lokasi, kemudian klik Terbitkan atau Perbarui.</strong> Data disimpan bersamaan dengan event tanpa proses tambahan.</p>
+        <p><strong>Tanggal, waktu, dan lokasi wajib diisi sebelum event diterbitkan.</strong> Event yang belum lengkap tetap bisa disimpan sebagai draf.</p>
+        <p class="silek-event-error" data-silek-event-error hidden>Lengkapi tanggal, waktu, dan lokasi sebelum menerbitkan event.</p>
         <table class="form-table" role="presentation">
             <tr>
                 <th scope="row"><label for="silek_event_date">Tanggal event <span aria-hidden="true">*</span></label></th>
-                <td><input type="date" class="regular-text" id="silek_event_date" name="silek_event_date" value="<?php echo esc_attr($date); ?>" required></td>
+                <td><input type="date" class="regular-text" id="silek_event_date" name="silek_event_date" value="<?php echo esc_attr($date); ?>"></td>
             </tr>
             <tr>
                 <th scope="row"><label for="silek_event_time">Waktu (WIB) <span aria-hidden="true">*</span></label></th>
-                <td><input type="time" class="regular-text" id="silek_event_time" name="silek_event_time" value="<?php echo esc_attr($time); ?>" required><p class="description">Menggunakan zona Indonesia Barat (UTC+7).</p></td>
+                <td><input type="time" class="regular-text" id="silek_event_time" name="silek_event_time" value="<?php echo esc_attr($time); ?>"><p class="description">Menggunakan zona Indonesia Barat (UTC+7).</p></td>
             </tr>
             <tr>
                 <th scope="row"><label for="silek_event_location">Lokasi <span aria-hidden="true">*</span></label></th>
-                <td><input type="text" class="regular-text" id="silek_event_location" name="silek_event_location" value="<?php echo esc_attr($location); ?>" placeholder="Contoh: Galanggang Kuranji Sejati" required></td>
+                <td><input type="text" class="regular-text" id="silek_event_location" name="silek_event_location" value="<?php echo esc_attr($location); ?>" placeholder="Contoh: Galanggang Kuranji Sejati"></td>
             </tr>
             <tr>
                 <th scope="row"><label for="silek_event_registration_url">Tautan pendaftaran</label></th>
@@ -431,21 +520,38 @@ function silek_save_event_details($post_id) {
         'registration_url' => isset($_POST['silek_event_registration_url']) ? wp_unslash($_POST['silek_event_registration_url']) : '',
     );
 
-    if (trim((string) $values['date']) === '' || trim((string) $values['time']) === '' || trim((string) $values['location']) === '') {
-        $result = new WP_Error('missing_event_details', 'Tanggal, waktu, dan lokasi wajib diisi.');
+    $result = silek_store_event_details($post_id, $values);
+    $is_complete = !is_wp_error($result) && $result['date'] !== '' && $result['time'] !== '' && $result['location'] !== '';
+    $was_unpublished = false;
+
+    if (!$is_complete && in_array(get_post_status($post_id), array('publish', 'future'), true)) {
+        remove_action('save_post_silek_event', 'silek_save_event_details', 20);
+        wp_update_post(array('ID' => $post_id, 'post_status' => 'draft'));
+        add_action('save_post_silek_event', 'silek_save_event_details', 20);
+        add_filter('redirect_post_location', 'silek_event_draft_redirect_message');
+        $was_unpublished = true;
+    }
+
+    if ($was_unpublished) {
+        $notice = array('success' => false, 'message' => 'Event disimpan sebagai draf karena tanggal, waktu, atau lokasi belum lengkap. Lengkapi ketiganya lalu klik Terbitkan.');
+    } elseif (is_wp_error($result)) {
+        $notice = array('success' => false, 'message' => $result->get_error_message());
+    } elseif (!$is_complete) {
+        $notice = null;
     } else {
-        $result = silek_store_event_details($post_id, $values);
+        $notice = array('success' => true, 'message' => 'Detail event berhasil disimpan dan sudah terhubung ke halaman pengunjung.');
     }
 
     $user_id = get_current_user_id();
-    if ($user_id) {
-        set_transient('silek_event_details_notice_' . $user_id, array(
-            'success' => !is_wp_error($result),
-            'message' => is_wp_error($result) ? $result->get_error_message() : 'Detail event berhasil disimpan dan sudah terhubung ke halaman pengunjung.',
-        ), 60);
+    if ($user_id && $notice) {
+        set_transient('silek_event_details_notice_' . $user_id, $notice, 60);
     }
 }
 add_action('save_post_silek_event', 'silek_save_event_details', 20);
+
+function silek_event_draft_redirect_message($location) {
+    return add_query_arg('message', 10, $location);
+}
 
 function silek_event_save_result_notice() {
     $screen = get_current_screen();
@@ -487,7 +593,7 @@ function silek_event_missing_details_notice() {
     }
 
     if ($missing) {
-        echo '<div class="notice notice-warning"><p><strong>Detail event belum lengkap.</strong> Lengkapi ' . esc_html(implode(', ', $missing)) . ' pada panel <strong>Detail Event (WIB)</strong>, lalu klik Perbarui.</p></div>';
+        echo '<div class="notice notice-warning"><p><strong>Detail event belum lengkap.</strong> Lengkapi ' . esc_html(implode(', ', $missing)) . ' pada panel <strong>Detail Event (WIB)</strong>. Event baru tampil di website setelah lengkap dan diterbitkan.</p></div>';
     }
 }
 add_action('admin_notices', 'silek_event_missing_details_notice');
@@ -648,6 +754,44 @@ function silek_format_event_date($date, $format = 'd M Y') {
     }
 }
 
+function silek_complete_event_meta_query($date_compare = null) {
+    $date_clause = $date_compare
+        ? array('key' => '_silek_event_date', 'value' => wp_date('Y-m-d'), 'compare' => $date_compare, 'type' => 'DATE')
+        : array('key' => '_silek_event_date', 'value' => '', 'compare' => '!=');
+
+    return array(
+        'relation' => 'AND',
+        'event_date' => $date_clause,
+        array('key' => '_silek_event_time', 'value' => '', 'compare' => '!='),
+        array('key' => '_silek_event_location', 'value' => '', 'compare' => '!='),
+    );
+}
+
+function silek_get_front_page_event_ids($limit = 3) {
+    $groups = array(
+        array('compare' => '>=', 'order' => 'ASC'),
+        array('compare' => '<', 'order' => 'DESC'),
+    );
+
+    $event_ids = array();
+    foreach ($groups as $group) {
+        $remaining = $limit - count($event_ids);
+        if ($remaining <= 0) {
+            break;
+        }
+        $event_ids = array_merge($event_ids, get_posts(array(
+            'post_type' => 'silek_event',
+            'post_status' => 'publish',
+            'posts_per_page' => $remaining,
+            'fields' => 'ids',
+            'meta_query' => silek_complete_event_meta_query($group['compare']),
+            'orderby' => array('event_date' => $group['order']),
+        )));
+    }
+
+    return $event_ids;
+}
+
 function silek_format_event_time($time) {
     if (!$time) {
         return '';
@@ -754,41 +898,28 @@ function silek_get_news_cover_url($post_id, $size = 'large') {
     return get_template_directory_uri() . '/assets/images/gallery/foto5.jpg';
 }
 
-function silek_seed_dummy_event() {
-    if (get_option('silek_dummy_event_v1')) {
+function silek_trash_sample_event_once() {
+    if (get_option('silek_sample_event_trashed_v1')) {
         return;
     }
 
-    $existing = get_posts(array(
+    $sample_events = get_posts(array(
         'post_type' => 'silek_event',
-        'post_status' => 'any',
-        'posts_per_page' => 1,
+        'post_status' => array('publish', 'future', 'draft', 'pending', 'private'),
+        'posts_per_page' => -1,
         'meta_key' => '_silek_dummy_event',
         'meta_value' => '1',
-        'fields' => 'ids',
     ));
 
-    if (!$existing) {
-        $post_id = wp_insert_post(array(
-            'post_type' => 'silek_event',
-            'post_status' => 'publish',
-            'post_title' => 'Latihan Terbuka dan Pengenalan Randai',
-            'post_excerpt' => 'Sesi latihan terbuka untuk mengenal dasar silek, randai, dan lingkungan Perguruan Pencak Silat Kuranji Sejati.',
-            'post_content' => '<p>Perguruan Pencak Silat Kuranji Sejati mengadakan sesi latihan terbuka bagi masyarakat yang ingin mengenal silek dan randai lebih dekat.</p><p>Kegiatan ini mencakup pengenalan gerak dasar, nilai yang dijaga dalam latihan, serta peran randai sebagai ruang bertemunya cerita, musik, gerak, dan kebersamaan.</p><p>Event ini merupakan contoh tampilan dan dapat diubah, dijadwalkan ulang, atau dihapus melalui menu Event pada dashboard WordPress.</p>',
-        ));
-
-        if (!is_wp_error($post_id)) {
-            update_post_meta($post_id, '_silek_dummy_event', '1');
-            update_post_meta($post_id, '_silek_event_date', '2026-10-18');
-            update_post_meta($post_id, '_silek_event_time', '08:00');
-            update_post_meta($post_id, '_silek_event_location', 'Galanggang Perguruan Kuranji Sejati');
-            wp_set_object_terms($post_id, array('kegiatan-unggulan'), 'silek_event_category');
+    foreach ($sample_events as $sample_event) {
+        if (strpos($sample_event->post_content, 'Event ini merupakan contoh tampilan') !== false) {
+            wp_trash_post($sample_event->ID);
         }
     }
 
-    update_option('silek_dummy_event_v1', 1, false);
+    update_option('silek_sample_event_trashed_v1', 1, false);
 }
-add_action('init', 'silek_seed_dummy_event', 25);
+add_action('init', 'silek_trash_sample_event_once', 25);
 function silek_get_gallery_image_url($post_id, $size = 'large') {
     if (has_post_thumbnail($post_id)) {
         return get_the_post_thumbnail_url($post_id, $size);
