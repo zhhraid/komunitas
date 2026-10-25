@@ -342,7 +342,7 @@ $profil_uri      = $theme_uri . '/assets/images/profil/';
                 </div>
                 <div>
                     <p>Kuranji Sejati membekali anggota dan anak-anak sekitar dengan pencak silat, randai, tari-tarian, serta musik tradisional Minangkabau.</p>
-                    <a class="button" href="#agenda">Lihat Semua Kegiatan</a>
+                    <a class="button" href="<?php echo esc_url(get_post_type_archive_link('silek_event')); ?>">Lihat Jadwal Event</a>
                 </div>
             </header>
             <div class="activity-cards">
@@ -624,7 +624,7 @@ $profil_uri      = $theme_uri . '/assets/images/profil/';
         </nav>
 
         <div class="footer-bottom">
-            <span>2026 Perguruan Pencak Silat Kuranji Sejati.</span>
+            <span>&copy; <?php echo esc_html(wp_date('Y')); ?> Perguruan Pencak Silat Kuranji Sejati.</span>
             <a href="#beranda">Kembali ke atas</a>
         </div>
     </footer>

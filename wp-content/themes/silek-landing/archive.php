@@ -1,42 +1,21 @@
 <?php
-$theme_uri = get_template_directory_uri();
-$brand_logo_path = get_template_directory() . '/assets/images/logo-kuranji-sejati.png';
-$brand_logo_uri = $theme_uri . '/assets/images/logo-kuranji-sejati.png';
-$is_event_archive = is_post_type_archive('silek_event');
+$is_event_archive = is_post_type_archive('silek_event') || is_tax('silek_event_category');
+$archive_term = is_tax(array('silek_event_category', 'silek_news_category')) ? get_queried_object() : null;
 $archive_label = $is_event_archive ? 'Event' : 'Berita';
-$archive_title = $is_event_archive ? 'Semua Event Kuranji Sejati' : 'Semua Berita Kuranji Sejati';
+if ($archive_term) {
+    $archive_title = ($is_event_archive ? 'Kategori Event: ' : 'Kategori Berita: ') . $archive_term->name;
+} else {
+    $archive_title = $is_event_archive ? 'Semua Event Kuranji Sejati' : 'Semua Berita Kuranji Sejati';
+}
 $archive_intro = $is_event_archive
     ? 'Temukan jadwal kegiatan mendatang dan lihat kembali event yang telah dilaksanakan.'
     : 'Ikuti kabar terbaru, proses pendampingan, dan perjalanan budaya Perguruan Pencak Silat Kuranji Sejati.';
-?>
-<!doctype html>
-<html <?php language_attributes(); ?>>
-<head>
-    <meta charset="<?php bloginfo('charset'); ?>">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <?php wp_head(); ?>
-</head>
-<body <?php body_class('content-archive-page'); ?>>
-<?php wp_body_open(); ?>
 
-<div class="site-shell archive-shell">
-    <header class="site-header detail-site-header">
-        <nav class="nav" aria-label="Navigasi halaman arsip">
-            <a class="brand" href="<?php echo esc_url(home_url('/#beranda')); ?>">
-                <?php if (file_exists($brand_logo_path)) : ?>
-                    <img class="brand-logo" src="<?php echo esc_url($brand_logo_uri); ?>" alt="Logo Perguruan Pencak Silat Kuranji Sejati" width="48" height="48">
-                <?php else : ?>
-                    <span class="brand-mark">KS</span>
-                <?php endif; ?>
-                <span class="brand-name">Perguruan Pencak Silat<br>Kuranji Sejati</span>
-            </a>
-            <div class="archive-nav">
-                <a href="<?php echo esc_url(home_url('/#agenda')); ?>">Beranda</a>
-                <a<?php echo !$is_event_archive ? ' class="is-active"' : ''; ?> href="<?php echo esc_url(get_post_type_archive_link('silek_news')); ?>">Berita</a>
-                <a<?php echo $is_event_archive ? ' class="is-active"' : ''; ?> href="<?php echo esc_url(get_post_type_archive_link('silek_event')); ?>">Event</a>
-            </div>
-        </nav>
-    </header>
+get_header('detail', array(
+    'body_class' => 'content-archive-page',
+    'active' => $is_event_archive ? 'event' : 'news',
+));
+?>
 
     <main>
         <section class="archive-hero">
@@ -72,11 +51,15 @@ $archive_intro = $is_event_archive
                 ?>
                 <?php foreach ($event_sections as $event_section) : ?>
                     <?php
+                    $event_args = $event_section['args'];
+                    if ($archive_term) {
+                        $event_args['tax_query'] = array(array('taxonomy' => 'silek_event_category', 'field' => 'term_id', 'terms' => $archive_term->term_id));
+                    }
                     $event_query = new WP_Query(array_merge(array(
                         'post_type' => 'silek_event',
                         'post_status' => 'publish',
                         'posts_per_page' => -1,
-                    ), $event_section['args']));
+                    ), $event_args));
                     if (!$event_query->have_posts()) {
                         continue;
                     }
@@ -145,15 +128,5 @@ $archive_intro = $is_event_archive
         </section>
     </main>
 
-    <footer class="detail-footer archive-footer">
-        <span>Perguruan Pencak Silat Kuranji Sejati</span>
-        <div>
-            <a href="<?php echo esc_url(home_url('/#kontak')); ?>">Kontak</a>
-            <a href="<?php echo esc_url(home_url('/#beranda')); ?>">Halaman Utama</a>
-        </div>
-    </footer>
-</div>
-
-<?php wp_footer(); ?>
-</body>
-</html>
+<?php
+get_footer('detail');

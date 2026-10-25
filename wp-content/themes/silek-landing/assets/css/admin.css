@@ -105,3 +105,28 @@
   background: #fff0c2;
   color: #805800;
 }
+.silek-admin-fields.is-stacked {
+  grid-template-columns: 1fr;
+}
+
+.silek-event-error {
+  margin: 0 0 8px;
+  padding: 10px 12px;
+  border-left: 4px solid #d63638;
+  background: #fcf0f1;
+  color: #8a2424;
+  font-weight: 600;
+}
+
+.silek-event-error[hidden] {
+  display: none;
+}
+
+.silek-field-missing {
+  border-color: #d63638 !important;
+  box-shadow: 0 0 0 1px #d63638 !important;
+}
+
+.silek-admin-fields.silek-event-fields {
+  display: block;
+}
