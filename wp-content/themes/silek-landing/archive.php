@@ -50,35 +50,21 @@ $archive_intro = $is_event_archive
         <section class="archive-content">
             <?php if ($is_event_archive) : ?>
                 <?php
-                $today = wp_date('Y-m-d');
                 $event_sections = array(
                     array(
                         'title' => 'Event Mendatang',
                         'description' => 'Diurutkan dari tanggal pelaksanaan yang paling dekat.',
                         'args' => array(
-                            'meta_key' => '_silek_event_date',
-                            'orderby' => 'meta_value',
-                            'order' => 'ASC',
-                            'meta_query' => array(array('key' => '_silek_event_date', 'value' => $today, 'compare' => '>=', 'type' => 'DATE')),
+                            'meta_query' => silek_complete_event_meta_query('>='),
+                            'orderby' => array('event_date' => 'ASC'),
                         ),
                     ),
                     array(
                         'title' => 'Event Selesai',
                         'description' => 'Dokumentasi jadwal kegiatan yang telah berlangsung.',
                         'args' => array(
-                            'meta_key' => '_silek_event_date',
-                            'orderby' => 'meta_value',
-                            'order' => 'DESC',
-                            'meta_query' => array(array('key' => '_silek_event_date', 'value' => $today, 'compare' => '<', 'type' => 'DATE')),
-                        ),
-                    ),
-                    array(
-                        'title' => 'Jadwal Menyusul',
-                        'description' => 'Event yang tanggal pelaksanaannya belum ditentukan.',
-                        'args' => array(
-                            'orderby' => 'date',
-                            'order' => 'DESC',
-                            'meta_query' => array(array('key' => '_silek_event_date', 'compare' => 'NOT EXISTS')),
+                            'meta_query' => silek_complete_event_meta_query('<'),
+                            'orderby' => array('event_date' => 'DESC'),
                         ),
                     ),
                 );
@@ -110,9 +96,9 @@ $archive_intro = $is_event_archive
                                 $event_terms = get_the_terms(get_the_ID(), 'silek_event_category');
                                 ?>
                                 <article class="event-card">
-                                    <time<?php echo $event_date ? ' datetime="' . esc_attr($event_date) . '"' : ' class="event-date-pending"'; ?>>
-                                        <strong><?php echo esc_html($event_date ? silek_format_event_date($event_date, 'd') : '--'); ?></strong>
-                                        <span><?php echo esc_html($event_date ? silek_format_event_date($event_date, 'M Y') : 'Menyusul'); ?></span>
+                                    <time datetime="<?php echo esc_attr($event_date); ?>">
+                                        <strong><?php echo esc_html(silek_format_event_date($event_date, 'd')); ?></strong>
+                                        <span><?php echo esc_html(silek_format_event_date($event_date, 'M Y')); ?></span>
                                     </time>
                                     <div>
                                         <?php if ($event_terms && !is_wp_error($event_terms)) : ?>
