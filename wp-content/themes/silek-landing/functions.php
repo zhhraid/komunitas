@@ -648,6 +648,45 @@ function silek_format_event_date($date, $format = 'd M Y') {
     }
 }
 
+function silek_get_front_page_event_ids($limit = 3) {
+    $today = wp_date('Y-m-d');
+    $groups = array(
+        array(
+            'meta_key' => '_silek_event_date',
+            'orderby' => 'meta_value',
+            'order' => 'ASC',
+            'meta_query' => array(array('key' => '_silek_event_date', 'value' => $today, 'compare' => '>=', 'type' => 'DATE')),
+        ),
+        array(
+            'orderby' => 'date',
+            'order' => 'DESC',
+            'meta_query' => array(array('key' => '_silek_event_date', 'compare' => 'NOT EXISTS')),
+        ),
+        array(
+            'meta_key' => '_silek_event_date',
+            'orderby' => 'meta_value',
+            'order' => 'DESC',
+            'meta_query' => array(array('key' => '_silek_event_date', 'value' => $today, 'compare' => '<', 'type' => 'DATE')),
+        ),
+    );
+
+    $event_ids = array();
+    foreach ($groups as $args) {
+        $remaining = $limit - count($event_ids);
+        if ($remaining <= 0) {
+            break;
+        }
+        $event_ids = array_merge($event_ids, get_posts(array_merge(array(
+            'post_type' => 'silek_event',
+            'post_status' => 'publish',
+            'posts_per_page' => $remaining,
+            'fields' => 'ids',
+        ), $args)));
+    }
+
+    return $event_ids;
+}
+
 function silek_format_event_time($time) {
     if (!$time) {
         return '';

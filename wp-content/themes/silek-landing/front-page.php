@@ -411,41 +411,39 @@ $profil_uri      = $theme_uri . '/assets/images/profil/';
                 <div class="event-board-heading">
                     <div>
                         <p class="eyebrow">Event</p>
-                        <h3>Jadwal kegiatan mendatang.</h3>
+                        <h3>Jadwal dan event terbaru.</h3>
                     </div>
                     <a class="button section-view-all" href="<?php echo esc_url(get_post_type_archive_link('silek_event')); ?>">Lihat Semua Event</a>
                 </div>
                 <div class="event-list">
                     <?php
-                    $event_query = new WP_Query(array(
+                    $event_ids = silek_get_front_page_event_ids(3);
+                    $event_query = $event_ids ? new WP_Query(array(
                         'post_type' => 'silek_event',
                         'post_status' => 'publish',
-                        'posts_per_page' => 3,
-                        'meta_key' => '_silek_event_date',
-                        'orderby' => 'meta_value',
-                        'order' => 'ASC',
-                        'meta_query' => array(
-                            array(
-                                'key' => '_silek_event_date',
-                                'value' => wp_date('Y-m-d'),
-                                'compare' => '>=',
-                                'type' => 'DATE',
-                            ),
-                        ),
-                    ));
-                    if ($event_query->have_posts()) :
+                        'post__in' => $event_ids,
+                        'orderby' => 'post__in',
+                        'posts_per_page' => count($event_ids),
+                    )) : null;
+                    $today = wp_date('Y-m-d');
+                    if ($event_query && $event_query->have_posts()) :
                         while ($event_query->have_posts()) : $event_query->the_post();
                             $event_date = get_post_meta(get_the_ID(), '_silek_event_date', true);
                             $event_time = get_post_meta(get_the_ID(), '_silek_event_time', true);
                             $event_location = get_post_meta(get_the_ID(), '_silek_event_location', true);
                             $event_terms = get_the_terms(get_the_ID(), 'silek_event_category');
                             ?>
-                            <article class="event-card">
-                                <time datetime="<?php echo esc_attr($event_date); ?>">
-                                    <strong><?php echo esc_html(silek_format_event_date($event_date, 'd')); ?></strong>
-                                    <span><?php echo esc_html(silek_format_event_date($event_date, 'M Y')); ?></span>
+                            <article class="event-card<?php echo $event_date && $event_date < $today ? ' is-past' : ''; ?>">
+                                <time<?php echo $event_date ? ' datetime="' . esc_attr($event_date) . '"' : ' class="event-date-pending"'; ?>>
+                                    <strong><?php echo esc_html($event_date ? silek_format_event_date($event_date, 'd') : '--'); ?></strong>
+                                    <span><?php echo esc_html($event_date ? silek_format_event_date($event_date, 'M Y') : 'Menyusul'); ?></span>
                                 </time>
                                 <div>
+                                    <?php if (!$event_date) : ?>
+                                        <span class="event-status">Jadwal Menyusul</span>
+                                    <?php elseif ($event_date < $today) : ?>
+                                        <span class="event-status">Selesai</span>
+                                    <?php endif; ?>
                                     <?php if ($event_terms && !is_wp_error($event_terms)) : ?>
                                         <span class="event-category"><?php echo esc_html($event_terms[0]->name); ?></span>
                                     <?php endif; ?>
