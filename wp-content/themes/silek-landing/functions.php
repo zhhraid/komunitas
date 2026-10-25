@@ -650,38 +650,32 @@ function silek_format_event_date($date, $format = 'd M Y') {
 
 function silek_get_front_page_event_ids($limit = 3) {
     $today = wp_date('Y-m-d');
+    $complete_details = array(
+        array('key' => '_silek_event_time', 'value' => '', 'compare' => '!='),
+        array('key' => '_silek_event_location', 'value' => '', 'compare' => '!='),
+    );
     $groups = array(
-        array(
-            'meta_key' => '_silek_event_date',
-            'orderby' => 'meta_value',
-            'order' => 'ASC',
-            'meta_query' => array(array('key' => '_silek_event_date', 'value' => $today, 'compare' => '>=', 'type' => 'DATE')),
-        ),
-        array(
-            'orderby' => 'date',
-            'order' => 'DESC',
-            'meta_query' => array(array('key' => '_silek_event_date', 'compare' => 'NOT EXISTS')),
-        ),
-        array(
-            'meta_key' => '_silek_event_date',
-            'orderby' => 'meta_value',
-            'order' => 'DESC',
-            'meta_query' => array(array('key' => '_silek_event_date', 'value' => $today, 'compare' => '<', 'type' => 'DATE')),
-        ),
+        array('compare' => '>=', 'order' => 'ASC'),
+        array('compare' => '<', 'order' => 'DESC'),
     );
 
     $event_ids = array();
-    foreach ($groups as $args) {
+    foreach ($groups as $group) {
         $remaining = $limit - count($event_ids);
         if ($remaining <= 0) {
             break;
         }
-        $event_ids = array_merge($event_ids, get_posts(array_merge(array(
+        $event_ids = array_merge($event_ids, get_posts(array(
             'post_type' => 'silek_event',
             'post_status' => 'publish',
             'posts_per_page' => $remaining,
             'fields' => 'ids',
-        ), $args)));
+            'meta_query' => array_merge(array(
+                'relation' => 'AND',
+                'event_date' => array('key' => '_silek_event_date', 'value' => $today, 'compare' => $group['compare'], 'type' => 'DATE'),
+            ), $complete_details),
+            'orderby' => array('event_date' => $group['order']),
+        )));
     }
 
     return $event_ids;

@@ -433,15 +433,13 @@ $profil_uri      = $theme_uri . '/assets/images/profil/';
                             $event_location = get_post_meta(get_the_ID(), '_silek_event_location', true);
                             $event_terms = get_the_terms(get_the_ID(), 'silek_event_category');
                             ?>
-                            <article class="event-card<?php echo $event_date && $event_date < $today ? ' is-past' : ''; ?>">
-                                <time<?php echo $event_date ? ' datetime="' . esc_attr($event_date) . '"' : ' class="event-date-pending"'; ?>>
-                                    <strong><?php echo esc_html($event_date ? silek_format_event_date($event_date, 'd') : '--'); ?></strong>
-                                    <span><?php echo esc_html($event_date ? silek_format_event_date($event_date, 'M Y') : 'Menyusul'); ?></span>
+                            <article class="event-card<?php echo $event_date < $today ? ' is-past' : ''; ?>">
+                                <time datetime="<?php echo esc_attr($event_date); ?>">
+                                    <strong><?php echo esc_html(silek_format_event_date($event_date, 'd')); ?></strong>
+                                    <span><?php echo esc_html(silek_format_event_date($event_date, 'M Y')); ?></span>
                                 </time>
                                 <div>
-                                    <?php if (!$event_date) : ?>
-                                        <span class="event-status">Jadwal Menyusul</span>
-                                    <?php elseif ($event_date < $today) : ?>
+                                    <?php if ($event_date < $today) : ?>
                                         <span class="event-status">Selesai</span>
                                     <?php endif; ?>
                                     <?php if ($event_terms && !is_wp_error($event_terms)) : ?>
