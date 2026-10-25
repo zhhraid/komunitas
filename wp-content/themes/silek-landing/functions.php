@@ -83,6 +83,14 @@ function silek_social_meta_tags() {
 }
 add_action('wp_head', 'silek_social_meta_tags', 5);
 
+function silek_redirect_missing_pages_home() {
+    if (is_404()) {
+        wp_safe_redirect(home_url('/'), 302);
+        exit;
+    }
+}
+add_action('template_redirect', 'silek_redirect_missing_pages_home');
+
 function silek_limit_search_results($query) {
     if (is_admin() || !$query->is_main_query() || !$query->is_search()) {
         return;
